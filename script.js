@@ -1,91 +1,48 @@
-String.prototype.replaceChars = function(character, replacement){
-    var str = this;
-    var a;
-    var b;
-    for(var i=0; i < str.length; i++){
-        if(str.charAt(i) == character){
-            a = str.substr(0, i) + replacement;
-            b = str.substr(i + 1);
-            str = a + b;
-        }
-    }
-    return str;
-}
+'use strict';
 
-function search(query){
-    switch(query.substr(0, 2)){
-        case "!a":
-            query = query.substr(3);
-            window.location = "http://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=" +
-                query.replaceChars(" ", "+");
-            break;
+let searchbox = document.querySelector('input');
 
-        case "!y":
-            query = query.substr(3);
-            window.location =
-                "https://www.youtube.com/results?search_query=" +
-                query.replaceChars(" ", "+");
-            break;
+// Set placeholder depending on the hour of the day.
+searchbox.placeholder = (function () {
+	let hour = new Date().getHours();
 
-        case "!w":
-            query = query.substr(3);
-            window.location =
-                "https://en.wikipedia.org/w/index.php?search=" +
-                query.replaceChars(" ", "%20");
-            break;
+	if (hour >= 6 && hour < 13) {
+		return "good morning!";
+	} else if (hour >= 13 && hour < 18) {
+		return "good afternoon!";
+	} else if (hour >= 18 && hour < 21) {
+		return "good evening!";
+	}
+	else {
+		return "good night!";
+	}
+})();
 
-	    case "!m":
-            query = query.substr(3);
-            window.location = 
-            "http://www.wolframalpha.com/input/?i=" + 
-            query.replaceChars("+", "%2B");
-            break;
+searchbox.addEventListener("keypress", function(event) {
+	if (event.key == 'Enter') {
+		// Value (string) of the <input> field when Enter was pressed.
+		search(this.value);
+	}
+});
 
-        case "!s":
-            query=query.substr(3);
-            window.location = 
-                "http://reddit.com/r/" + 
-                query.replaceChars(" ", "%20");
-                break;
+// Behold, the magical powers of JavaScript!
+const ENGINES = {
+	default: "https://www.google.com/#q=",
 
-        default:
-            window.location="https://www.google.com/#q=" +
-                query.replaceChars(" ", "+");
-    }
-}
+	"!a": "https://www.amazon.com/s/ref=nb_sb_noss_1?url=search-alias%3Daps&field-keywords=",
+	"!y": "https://www.youtube.com/results?search_query=",
+	"!w": "https://en.wikipedia.org/w/index.php?search=",
+	"!m": "https://www.wolframalpha.com/input/?i=",
+	"!s": "https://reddit.com/r/"
+};
 
-window.onload = function(){
-    // search
-    searchinput = document.getElementById("searchbox");
-    if(!!searchinput){
-        searchinput.addEventListener("keypress", function(a){
-            var key = a.keyCode;
-            if(key == 13){
-                var query = this.value;
-                search(query);
-            }
-        });
-    }
- 
-    // jump to search when tab is pressed
-    var search_sqr = document.getElementById("search_sqr");
-    document.getElementById("searchbox").placeholder = greetingTime();
- 
-}
+function search(query) {
+	let engine = ENGINES.default;
 
-function greetingTime() {
-    var d = new Date();
-    var current_time = d.getHours();
-    var greeting;
-     
-    if (current_time >= 6 && current_time < 13) {
-        return "good morning!";
-    } else if (current_time >= 13 && current_time < 18) {
-        return "good afternoon!";
-    } else if (current_time >= 18 && current_time < 21) {
-        return "good evening!";
-    }
-    else {
-        return "good night!";
-    }
+	if (query[0] === "!") {
+		engine = ENGINES[query.substr(0, 2)]; // We love hashes!
+		query = query.substr(3);
+	}
+
+	window.location = engine + encodeURIComponent(query);
 }
