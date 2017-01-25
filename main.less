@@ -1,0 +1,84 @@
+/* Startpage CSS
+ * (inspired) By Dylan Araps */
+
+// $ lessc --autoprefix="last 3 versions" main.less style.css
+@background-blue: #182135;
+@pink: #be2d6a;
+@light-pink: #c77da3;
+@grey: #7c9fa6;
+
+@import url('https://fonts.googleapis.com/css?family=Pacifico|Roboto');
+
+body {
+	background-color: @background-blue;
+	font-family: 'Roboto', sans-serif;
+
+	height: auto;
+	min-height: 100vh;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#flex {
+	max-width: 530px;
+	margin: 10px;
+}
+
+input {
+	width: 100%;
+	padding: 5px 5px 5px 0;
+	margin: 5px 5px 5px 0;
+	font-family: 'Pacifico', Helvetica, sans-serif;
+	font-size: 50px;
+	color: @pink;
+
+	&::placeholder {
+		color: inherit;
+		opacity: 1;
+	}
+
+	background: none;
+	border: none;
+}
+
+
+#links {
+	width: 100%;
+	font-size: 1.2em;
+	line-height: 1.5;
+	color: @light-pink;
+
+	hr {
+		border-top: 1px solid #70838c;
+		border-bottom: none;
+		opacity: .4;
+	}
+
+	ul {
+		display: flex;
+		flex-wrap: wrap;
+
+		li {
+			margin-right: 15px;
+
+			&:last-child {
+				margin-right: 0px;
+			}
+		}
+	}
+}
+
+a {
+	color: @grey;
+	text-decoration: none;
+	transition: .2s;
+
+	&:hover {
+		color: darken(@grey, 25%);
+	}
+}
+
+/* ------------------------------------------------------------------------ */
+@import "reset";
