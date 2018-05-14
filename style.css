@@ -1,11 +1,14 @@
 /* Startpage CSS
  * (inspired) By Dylan Araps */
 @import url('https://fonts.googleapis.com/css?family=Pacifico|Roboto');
+@import url('file:///home/menrva/.cache/wal/colors.css');
+
 body {
-  background-color: #182135;
+  background-color: var(--color1);
   font-family: 'Roboto', sans-serif;
   height: auto;
   min-height: 100vh;
+  filter: brightness(120%);
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -23,7 +26,8 @@ input {
   margin: 5px 5px 5px 0;
   font-family: 'Pacifico', Helvetica, sans-serif;
   font-size: 50px;
-  color: #be2d6a;
+  color: var(--color2);
+  filter: brightness(130%);
   background: none;
   border: none;
 }
@@ -47,10 +51,10 @@ input::placeholder {
   width: 100%;
   font-size: 1.2em;
   line-height: 1.5;
-  color: #c77da3;
+  color: var(--color4);
 }
 #links hr {
-  border-top: 1px solid #70838c;
+  border-top: 1px solid var(--color3);
   border-bottom: none;
   opacity: .4;
 }
@@ -67,12 +71,12 @@ input::placeholder {
   margin-right: 0px;
 }
 a {
-  color: #7c9fa6;
+  color: var(--color5);
   text-decoration: none;
   transition: .2s;
 }
 a:hover {
-  color: #425c61;
+  color: var(--color6);
 }
 /* ------------------------------------------------------------------------ */
 /* http://meyerweb.com/eric/tools/css/reset/
